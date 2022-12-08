@@ -12,20 +12,16 @@ export default class Cart {
     }
 
     getTotal(): number {
-        let total: number = 0;
-        this._items.forEach((item) => {
-            total += item.price;
-        });
-        return total;
+        return this._items.reduce((acc, prev) => (acc += prev.price), 0);
     }
 
-    getDiscout(discout: number): number {
+    getDiscout(discount: number): number {
         let total: number = this.getTotal();
-        total = total - total * (discout / 100);
+        total = total - total * (discount / 100);
         return total;
     }
 
     deleteId(id: number): void {
-        this._items = this._items.filter((item) => item.id !== id);
+        this._items = this._items.filter((item: Buyable) => item.id !== id);
     }
 }
